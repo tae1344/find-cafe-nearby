@@ -15,7 +15,6 @@ function initMap() {
   infoWindow = new google.maps.InfoWindow();
   map = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: { lat: 35.865492, lng: 128.593394 } });
 
-  // fetch 
 
 
 
