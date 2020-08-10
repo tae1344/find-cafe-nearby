@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/css/style.css" />
+    <title>My Cafe Web</title>
+  </head>
+  <body>
+    <section class="main-section">
+      <h1>내 주변 카페 찾기</h1>
+      <div class="container">
+        <div id="map"></div>
+        <button class="searching-btn find-cafe" onclick="searchCafeBtn">
+          주변 카페찾기
+        </button>
+        <button class="searching-btn find-bakery" onclick="searchBakeryBtn">
+          주변 빵집찾기
+        </button>
+        <div class="list-view"></div>
+      </div>
+      <div class="places-container">
+        <ul id="places"></ul>
+      </div>
+    </section>
+    <script src="js/main.js"></script>
+    <script async defer type="module">
+      // Dynamic Loading 방식 - API KEY 숨겨서 사용할 수 있는 방법인듯 하다.
+      import { GOOGLE_API_KEY } from "./config.js";
+      var script = document.createElement("script");
+
+      script.defer = true;
+      script.src =
+        "https://maps.googleapis.com/maps/api/js?key=" +
+        `${GOOGLE_API_KEY}` +
+        "&callback=initMap&libraries=places";
+      document.head.appendChild(script);
+    </script>
+  </body>
+</html>
