@@ -41,6 +41,8 @@ ol {
 }
 
 .places-container #places {
+  display: grid;
+  grid-template-columns: auto auto;
   border: #333 1px solid;
   border-radius: 10px;
   text-align: center;

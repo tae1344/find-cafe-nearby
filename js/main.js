@@ -5,18 +5,15 @@ const listView = document.querySelector('.list-view');
 let map;
 let service;
 let infoWindow;
+let markers = [];
 //let latitude, longitude;
 searchCafe.addEventListener("click", searchCafeBtn); //버튼 이벤트
 searchBakery.addEventListener("click", searchBakeryBtn);
 
 // Google Map init
 function initMap() {
-
   infoWindow = new google.maps.InfoWindow();
   map = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: { lat: 35.865492, lng: 128.593394 } });
-
-
-
 
   // Get Current Location
   if (!navigator.geolocation) {
@@ -27,6 +24,7 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
+
       infoWindow.setPosition(pos);
       infoWindow.setContent('My Location');
       infoWindow.open(map);
@@ -50,6 +48,7 @@ function searchCafeBtn() {
   service.nearbySearch(request, callback);
 }
 
+//Find Bakery button
 function searchBakeryBtn() {
   let request = {
     location: map.center,
@@ -58,13 +57,8 @@ function searchBakeryBtn() {
   };
 
   service = new google.maps.places.PlacesService(map);
-
   service.nearbySearch(request, callback);
-  console.log(service.nearbySearch(request, callback));
-  service.getDetails(request, callback);
 
-  //photo = new google.maps.places.PlaceResult(map);
-  //console.log(photo);
 }
 
 // Handling error
@@ -83,7 +77,7 @@ function createMarker(place) {
     position: place.geometry.location,
 
   });
-  //marker.setMap(null);
+  markers.push(marker);
 
   google.maps.event.addListener(marker, "click", function () {
     infoWindow.setContent(place.name);
@@ -91,12 +85,26 @@ function createMarker(place) {
   });
 
 }
+
+// Remove markers
+function removeMarkers() {
+
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+  markers = [];
+
+}
+
 // nearbySearch Callback Func
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
+    if (markers.length != 0) {
+      removeMarkers();
+    }
     results.forEach((place) => createMarker(place));
     createList(results);
-    console.log(results);
+    //console.log(results);
   }
 }
 

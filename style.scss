@@ -40,6 +40,8 @@ ol {
   height: 100%;
 
   #places {
+    display: grid;
+    grid-template-columns: auto auto;
     border: #333 1px solid;
     border-radius: 10px;
     text-align: center;
@@ -49,6 +51,9 @@ ol {
       padding: 1rem 0;
       width: 300px;
       background: #fff;
+    }
+
+    .list-item {
     }
   }
 }
