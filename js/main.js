@@ -114,14 +114,33 @@ function createList(places) {
   let list = document.getElementById('places');
   let output = '';
 
+
   places.forEach((data) => {
+
     output += `
       <li class="list-item">
         <h3>${data.name}</h3>
-        <span>${data.rating} ${data.vicinity}</span>
+        <span>${ratingStars(data)} ${data.vicinity}</span>
       </li>
     `;
   });
   list.innerHTML = output;
+}
 
+// Create Rating Stars
+function ratingStars(value) {
+  let ratings = Math.round(value.rating);
+  let out = '';
+
+  if (value.rating == null) {
+    for (let i = 0; i < 5; i++) {
+      out += `<i class="fas fa-star rating" style="color:#eee"></i>`
+    }
+    return out + `(0)`;
+  } else {
+    for (let i = 0; i < ratings; i++) {
+      out += `<i class="fas fa-star rating" style="color:yellow"></i>`;
+    }
+    return out + `(${value.rating})`;
+  }
 }
