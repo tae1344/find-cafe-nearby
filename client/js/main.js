@@ -88,12 +88,11 @@ function createMarker(place) {
 
 // Remove markers
 function removeMarkers() {
-
+  // 기존에 표시되던 마커 제거하고 빈 값으로 초기화
   for (let i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
   markers = [];
-
 }
 
 // nearbySearch Callback Func
@@ -104,7 +103,7 @@ function callback(results, status) {
     }
     results.forEach((place) => createMarker(place));
     createList(results);
-    //console.log(results);
+
   }
 }
 
@@ -129,15 +128,17 @@ function createList(places) {
 
 // Create Rating Stars
 function ratingStars(value) {
-  let ratings = Math.round(value.rating);
+  let ratings = Math.round(value.rating); //반올림
   let out = '';
 
   if (value.rating == null) {
+    // 평가가 없다면, 회색별로 표시
     for (let i = 0; i < 5; i++) {
       out += `<i class="fas fa-star rating" style="color:#eee"></i>`
     }
     return out + `(0)`;
   } else {
+    // 평가가 있다면, 노란색으로 표시
     for (let i = 0; i < ratings; i++) {
       out += `<i class="fas fa-star rating" style="color:yellow"></i>`;
     }
